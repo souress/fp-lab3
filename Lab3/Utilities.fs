@@ -32,3 +32,22 @@ let printValues (func: double -> double) algorithm (pointGeneratorN: (int -> dou
         |> Seq.fold (+) "x\t\ty\n"
         |> fun s -> printfn $"{algorithm} result: \n{s}"
     }
+
+let rec inputValuesSeq =
+    seq {
+        let line = Console.ReadLine()
+
+        match not (String.IsNullOrEmpty line) with
+        | true ->
+            let data = line.TrimEnd(';').Split(';')
+
+            match data.Length >= 2 with
+            | true ->
+                let x, y =
+                    match (data[0], data[1]) with
+                    | xStr, yStr -> double xStr, double yStr
+
+                yield (x, y)
+            | _ -> yield! inputValuesSeq
+        | false -> exit 0
+    }
