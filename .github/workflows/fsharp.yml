@@ -1,0 +1,43 @@
+name: F# CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      Solution_Name: Lab3.sln
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+      with:
+        fetch-depth: 0
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@main
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@main
+
+    - name: Restore solution
+      run: dotnet restore .\Lab3.sln
+
+    - name: Install linter
+      run: dotnet tool install dotnet-fsharplint --version 0.21.6
+    - name: Run linter
+      run: dotnet fsharplint lint --file-type solution .\Lab3.sln
+
+    - name: Install formatter
+      run: dotnet tool install fantomas
+    - name: Run formatter
+      run: dotnet fantomas --check ./Lab3
+
+    - name: Run tests
+      run: dotnet test
