@@ -27,7 +27,7 @@ let printValues (func: double -> double) algorithm (pointGeneratorN: (int -> dou
     async {
         let pointGenerator, n = pointGeneratorN
 
-        { 1..n }
+        { 0..n }
         |> Seq.map (fun i -> $"(%f{pointGenerator i};\t%f{func (pointGenerator i)})\n")
         |> Seq.fold (+) "x\t\ty\n"
         |> fun s -> printfn $"{algorithm} result: \n{s}"
