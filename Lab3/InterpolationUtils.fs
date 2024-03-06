@@ -14,7 +14,9 @@ let private linearInterpolation (x1: double, y1: double) (x2: double, y2: double
         y
 
 let lagrangeRun (points: list<double * double>) (targetX: double) =
-    points |> Seq.mapi (fun j (_, yi) -> yi * lagrangeInterpolation points j targetX) |> Seq.sum
+    points
+    |> Seq.mapi (fun j (_, yi) -> yi * lagrangeInterpolation points j targetX)
+    |> Seq.sum
 
 let linearRun (points: list<double * double>) (targetX: double) =
     linearInterpolation points[0] points[1] targetX

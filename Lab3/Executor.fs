@@ -35,5 +35,6 @@ let execute (inputSeq: (double * double) seq) (options: CommandLineOptions) =
 
             match algorithm, pairs.Length with
             | Linear, _ -> printValues act algorithm pointGenerators[0] |> Async.RunSynchronously
-            | Lagrange, l when l = options.Window -> printValues act algorithm pointGenerators[1] |> Async.RunSynchronously
+            | Lagrange, l when l = options.Window ->
+                printValues act algorithm pointGenerators[1] |> Async.RunSynchronously
             | _ -> ()))

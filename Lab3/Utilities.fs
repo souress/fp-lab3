@@ -26,7 +26,7 @@ let getPointGenerators (points: list<double * double>) step =
 let printValues (func: double -> double) algorithm (pointGeneratorN: (int -> double) * int) =
     async {
         let pointGenerator, n = pointGeneratorN
-        
+
         { 1..n }
         |> Seq.map (fun i -> $"(%f{pointGenerator i};\t%f{func (pointGenerator i)})\n")
         |> Seq.fold (+) "x\t\ty\n"
