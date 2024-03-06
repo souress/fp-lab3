@@ -1,5 +1,6 @@
 ﻿module Utilities
 
+#nowarn "40"
 open System
 
 type AlgorithmOption =
